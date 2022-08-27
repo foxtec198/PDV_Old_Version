@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import os,sys, time
 import sqlite3 as sq
-
+print('hey')
 
 conn = sq.connect('usuarios.db')
 c = conn.cursor()
