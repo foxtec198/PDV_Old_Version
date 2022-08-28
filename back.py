@@ -1,6 +1,6 @@
 from openpyxl import load_workbook
-from math import floor
-import time, os, sys
+import time
+
 #Carregando Data
 dia = time.strftime("DATA %d/%m/%y")
 #Carregando e Ativando xlsx
@@ -10,10 +10,8 @@ ws = planilha.active
 
 class DCO():
     def __init__(self):
-
         #Valor Generico
         self.generico = float()
-
         #Departamentos
         self.infantil = float()
         self.fem = float()
@@ -25,12 +23,14 @@ class DCO():
         self.mdc = float()
         self.cba = float()
         self.tec = float()
+        self.tecno = float()
         self.blz = float()
 
     def ler(self, tdco):
         #Ler dados
         with open('texto.txt') as t:
             self.dados = t.readlines()
+
         #Lendo linha por DCO
         for linha in self.dados:
             if tdco in linha:
@@ -56,9 +56,7 @@ class DCO():
             else:
                 self.generico += 0
 
-
 d = DCO()
-
 
 def inf():
     d.generico = float()
@@ -85,25 +83,21 @@ def inf():
     d.ler('196-')
     d.infantil = d.generico
 
-
 def biju():
     d.generico = float()
     d.ler('560-')
     d.ler('565-')
     d.biju = d.generico
 
-
 def bskt():
     d.generico = float()
     d.ler('572-')
     d.basket = d.generico
 
-
 def rel():
     d.generico = float()
     d.ler('550-')
     d.relo = d.generico
-
 
 def fem():
     d.generico = float()
@@ -155,10 +149,12 @@ def masc():
     d.ler('360-')
     d.ler('365-')
     d.ler('370-')
+    d.ler('375-')
     d.ler('380-')
+    d.ler('390-')
     d.ler('395-')
     d.masc = d.generico
-    
+
 def mdc():
     d.generico = float()
     d.ler('400-')
@@ -186,13 +182,9 @@ def cba():
     d.cba = d.generico
 
 def tec():
-    d.genrico = float()
-    d.ler('530-')
-    d.ler('532-')
-    d.ler('533-')
-    d.ler('551-')
-    d.ler('552-')
-    d.tec = d.generico
+    d.generico = float()
+    d.ler('530-E')
+    d.tecno = d.generico
 
 def blz():
     d.generico = float()
@@ -214,29 +206,20 @@ def inserir():
     ws["E10"] = d.fem
     ws['E7'] = d.blz
     ws['E8'] = d.cba
-    ws['E9'] = d.tec
+    ws['E9'] = d.tecno
     ws['E12'] = d.masc
     ws['E13'] = d.mdc
-    
 
-def hora():
-    global horas
-    horas = time.strftime("%H:%M")
-
-
+blz()
+cba()
+tec()
+fem()
 inf()
+masc()
+mdc()
 biju()
 bskt()
 rel()
-fem()
-masc()
-mdc()
-cba()
-tec()
-blz()
 
 inserir()
 planilha.save("horaxhora.xlsx")
-hora()
-print(
-    f"Parcial das {horas} realizada com sucesso\nAcesso a planilha liberado!")
